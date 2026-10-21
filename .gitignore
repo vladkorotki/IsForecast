@@ -112,3 +112,9 @@ pgdata/
 .tmp/
 .eslintcache
 .stylelintcache
+
+# SQLite database files
+server/data/
+*.db
+*.db-wal
+*.db-shm

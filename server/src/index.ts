@@ -1,16 +1,35 @@
 import cors from "cors";
-import express, { Request, Response } from "express";
+import dotenv from "dotenv";
+import express from "express";
+import "reflect-metadata";
+import { AppDataSource } from "./data-source.js";
 
-const app = express();
-const PORT = process.env.PORT ?? 3000;
+const PORT = Number(process.env.PORT ?? 3000);
 
-app.use(cors());
-app.use(express.json());
+async function bootstrap() {
+  try {
+    dotenv.config();
+    // Инициализация базы данных
+    await AppDataSource.initialize();
+    await AppDataSource.runMigrations(); 
+    console.info("database connected and migrations applied");
+    console.log("Database connected successfully");
 
-app.get("/health", (_req: Request, res: Response) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
-});
+    const app = express();
+    app.use(cors());
+    app.use(express.json());
 
-app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
-});
+    app.get("/health", (_req, res) => {
+      res.json({ status: "ok", timestamp: new Date().toISOString() });
+    });
+
+    app.listen(PORT, () => {
+      console.log(` Server listening on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+}
+
+bootstrap();
