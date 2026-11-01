@@ -3,16 +3,15 @@ import dotenv from "dotenv";
 import express from "express";
 import "reflect-metadata";
 import { AppDataSource } from "./data-source.js";
+import { errorHandler } from "./midlwares/error-handler.js";
+import { weatherRouter } from "./routes/weather.router.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 
 async function bootstrap() {
   try {
     dotenv.config();
-    // Инициализация базы данных
     await AppDataSource.initialize();
-    await AppDataSource.runMigrations(); 
-    console.info("database connected and migrations applied");
     console.log("Database connected successfully");
 
     const app = express();
@@ -23,8 +22,11 @@ async function bootstrap() {
       res.json({ status: "ok", timestamp: new Date().toISOString() });
     });
 
+    app.use("/api", weatherRouter);
+    app.use(errorHandler);
+
     app.listen(PORT, () => {
-      console.log(` Server listening on http://localhost:${PORT}`);
+      console.log(`Server listening on http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error("Failed to start server:", error);
