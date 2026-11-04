@@ -1,0 +1,86 @@
+.current-card {
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.main-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.main-info-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.temperature {
+  font-size: clamp(3rem, 8vw, 4rem);
+  font-weight: bold;
+  color: #333;
+  line-height: 1;
+}
+
+.weather-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #007bff;
+}
+
+.big-icon {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  margin-bottom: 0.5rem;
+}
+
+.code-hint {
+  font-size: 0.6rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
+
+.details-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-top: 1px solid #eee;
+  padding-top: 1.25rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 6rem;
+
+  @media (min-width: 600px) {
+    flex: 1 1 calc(25% - 0.75rem);
+  }
+
+  mat-icon {
+    color: #888;
+  }
+}
+
+.label {
+  font-size: 0.875rem;
+  color: #888;
+}
+
+.value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #333;
+}
