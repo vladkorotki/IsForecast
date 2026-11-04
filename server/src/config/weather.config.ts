@@ -5,9 +5,9 @@ export const WEATHER_CONFIG = {
     current:
       "temperature_2m,relative_humidity_2m,pressure_msl,cloud_cover,uv_index,weather_code",
     hourly:
-      "temperature_2m,precipitation,relative_humidity_2m,pressure_msl,cloud_cover,uv_index,weather_code,snowfall",
+      "temperature_2m,precipitation,relative_humidity_2m,pressure_msl,cloud_cover,uv_index,weather_code,snowfall,wind_speed_10m",
     daily:
-      "temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum,uv_index_max",
+      "temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum,uv_index_max,sunrise,sunset",
     timezone: "auto",
     forecast_days: "7",
   },
