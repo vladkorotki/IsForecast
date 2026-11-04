@@ -26,6 +26,7 @@ export interface IOpenMeteoForecastResponse {
     uv_index: number[];
     weather_code: number[];
     snowfall: number[];
+    wind_speed_10m: number[];
   };
   daily: {
     time: string[];
@@ -34,6 +35,8 @@ export interface IOpenMeteoForecastResponse {
     weather_code: number[];
     precipitation_sum: number[];
     uv_index_max: number[];
+    sunrise: string[];
+    sunset: string[];
   };
 }
 
@@ -63,6 +66,7 @@ export interface IWeatherHourly {
   uvIndex: number[];
   weatherCode: number[];
   snowfall: number[];
+  windSpeed: number[];
 }
 
 export interface IWeatherDaily {
@@ -72,6 +76,8 @@ export interface IWeatherDaily {
   weatherCode: number;
   precipitationSum: number;
   uvIndexMax: number;
+  sunrise: string;
+  sunset: string;
 }
 
 export interface IWeatherPayload {

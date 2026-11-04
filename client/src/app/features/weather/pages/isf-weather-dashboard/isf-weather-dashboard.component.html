@@ -1,0 +1,39 @@
+@let weatherDataT = weatherData();
+<div class="dashboard">
+  <div class="sticky-top">
+    @if (weatherDataT; as data) {
+      <h2 class="city-title">
+        {{ data.location.name }}, {{ data.location.country }}
+        @if (data.stale) {
+          <span class="stale-badge">The data is outdated</span>
+        }
+      </h2>
+
+      <isf-current-weather [current]="data.payload.current">
+        <isf-search-bar (search)="onSearch($event)"></isf-search-bar>
+      </isf-current-weather>
+    }
+  </div>
+
+  @if (weatherDataT; as data) {
+    <div class="scrollable-content">
+      <div class="forecast-section">
+        <h3>7-day forecast</h3>
+        <isf-daily-forecast
+          [daily]="data.payload.daily"
+          (selectedDayChange)="onDaySelected($event)"
+        >
+        </isf-daily-forecast>
+      </div>
+
+      @if (activeDay(); as day) {
+        <isf-weather-details [daily]="day" [hourly]="data.payload.hourly"> </isf-weather-details>
+      }
+    </div>
+  }
+
+  @if (error(); as err) {
+    <isf-search-bar (search)="onSearch($event)"></isf-search-bar>
+    <div class="error">{{ err }}</div>
+  }
+</div>

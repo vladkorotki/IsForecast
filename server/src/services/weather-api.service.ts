@@ -58,6 +58,7 @@ export class WeatherApiService {
             uvIndex: raw.hourly.uv_index,
             weatherCode: raw.hourly.weather_code,
             snowfall: raw.hourly.snowfall,
+            windSpeed: raw.hourly.wind_speed_10m,
           },
           daily: raw.daily.time.map((date, i) => ({
             date,
@@ -66,6 +67,8 @@ export class WeatherApiService {
             weatherCode: raw.daily.weather_code[i],
             precipitationSum: raw.daily.precipitation_sum[i],
             uvIndexMax: raw.daily.uv_index_max[i],
+            sunrise: raw.daily.sunrise[i],
+            sunset: raw.daily.sunset[i],
           })),
         };
       }),

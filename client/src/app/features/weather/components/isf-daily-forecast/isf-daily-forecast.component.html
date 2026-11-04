@@ -1,0 +1,16 @@
+<div class="daily-slider">
+  @for (day of daily(); track day.date; let i = $index) {
+    @let dayInfo = day.weatherCode | isfWeatherInfo;
+    <mat-card class="day-card" [class.selected]="selectedIndex() === i" (click)="selectDay(i)">
+      <mat-card-content>
+        <div class="day-name">{{ day.date | date: 'EEE' }}</div>
+        <div class="day-date">{{ day.date | date: 'd MMM' }}</div>
+        <div class="day-icon">{{ dayInfo.icon }}</div>
+        <div class="day-temps">
+          <span class="max">{{ day.tempMax | number: '1.0-0' }}°</span>
+          <span class="min">{{ day.tempMin | number: '1.0-0' }}°</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

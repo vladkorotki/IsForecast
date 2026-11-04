@@ -1,0 +1,40 @@
+@let currentWeather = current();
+@let wInfo = currentWeather.weatherCode | isfWeatherInfo;
+
+<mat-card class="current-card">
+  <mat-card-content>
+    <div class="main-info">
+      <div class="main-info-data">
+        <div class="temperature">{{ currentWeather.temperature | number: '1.0-0' }}°C</div>
+        <div class="weather-icon">
+          <span class="big-icon">{{ wInfo.icon }}</span>
+          <span class="code-hint">{{ wInfo.label }}</span>
+        </div>
+      </div>
+      <ng-content select="isf-search-bar" />
+    </div>
+
+    <div class="details-grid">
+      <div class="detail-item">
+        <mat-icon>water_drop</mat-icon>
+        <span class="label">Humidity</span>
+        <span class="value">{{ currentWeather.humidity }}%</span>
+      </div>
+      <div class="detail-item">
+        <mat-icon>speed</mat-icon>
+        <span class="label">Pressure</span>
+        <span class="value">{{ currentWeather.pressure | isfPressure: 'mmHg' }}</span>
+      </div>
+      <div class="detail-item">
+        <mat-icon>cloud_queue</mat-icon>
+        <span class="label">Cloudiness</span>
+        <span class="value">{{ currentWeather.cloudCover }}%</span>
+      </div>
+      <div class="detail-item">
+        <mat-icon>wb_sunny</mat-icon>
+        <span class="label">UV index</span>
+        <span class="value">{{ currentWeather.uvIndex }}</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
