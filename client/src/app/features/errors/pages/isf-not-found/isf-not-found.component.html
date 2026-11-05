@@ -1,0 +1,16 @@
+<div class="not-found-container">
+  <mat-icon class="big-icon">cloud_off</mat-icon>
+  <h1>Location not found</h1>
+  <p>We couldn't find the weather for this location. Please try another city.</p>
+
+  <!-- Встроенный поиск -->
+  <div class="search-wrapper">
+    <isf-search-bar (search)="onSearch($event)"></isf-search-bar>
+  </div>
+
+  @if (isLoading()) {
+    <p class="loading">Searching...</p>
+  }
+
+  <button mat-button (click)="goHome()" class="home-btn">Back to Home</button>
+</div>

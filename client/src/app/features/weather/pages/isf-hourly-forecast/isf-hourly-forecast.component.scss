@@ -1,0 +1,17 @@
+.page-container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: clamp(1rem, 5vw, 3rem);
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.back-btn {
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  color: #333;
+  margin-bottom: 1.5rem;
+}

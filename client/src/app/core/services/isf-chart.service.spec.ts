@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { WeatherApiService } from './weather-api.service';
+import { IsfChartService } from './isf-chart.service';
 
-describe('WeatherApiService', () => {
-  let service: WeatherApiService;
+describe('IsfChartService', () => {
+  let service: IsfChartService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(WeatherApiService);
+    service = TestBed.inject(IsfChartService);
   });
 
   it('should be created', () => {
