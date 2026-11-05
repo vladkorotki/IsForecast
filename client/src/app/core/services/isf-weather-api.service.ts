@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IWeatherResponse } from '../types/weather.types';
 
 @Service()
-export class WeatherApiService {
+export class IsfWeatherApiService {
   private readonly baseUrl = '/api/weather';
 
   private readonly http = inject(HttpClient);

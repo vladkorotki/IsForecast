@@ -50,3 +50,9 @@ export interface IWeatherResponse {
   stale: boolean;
   fetchedAt: string;
 }
+
+export interface IHourlyData {
+  daily: IWeatherDaily;
+  hourly: IWeatherHourly;
+  locationName: string;
+}

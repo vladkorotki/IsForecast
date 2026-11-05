@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
-import { IsfWeatherDashboardComponent } from './features/weather/pages/isf-weather-dashboard/isf-weather-dashboard.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [IsfWeatherDashboardComponent],
+  imports: [RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.component.scss',
   templateUrl: './app.component.html',
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100vh;
+      }
+    `,
+  ],
 })
 export class AppComponent {}
