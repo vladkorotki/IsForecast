@@ -8,9 +8,5 @@
     <isf-search-bar (search)="onSearch($event)"></isf-search-bar>
   </div>
 
-  @if (isLoading()) {
-    <p class="loading">Searching...</p>
-  }
-
   <button mat-button (click)="goHome()" class="home-btn">Back to Home</button>
 </div>

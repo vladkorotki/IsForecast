@@ -24,6 +24,37 @@ export class WeatherService {
       throw err;
     }
 
+    return this.fetchAndCacheWeather(geolocation);
+  }
+
+  public async getWeatherByCoords(
+    lat: number,
+    lon: number,
+  ): Promise<IWeatherResult> {
+    const geolocation = await firstValueFrom(
+      this.weatherApiService.reverseGeocode(lat, lon),
+    );
+
+    if (!geolocation) {
+      const err: any = new Error("Location not found for these coordinates");
+      err.status = 404;
+      throw err;
+    }
+
+    return this.fetchAndCacheWeather(geolocation);
+  }
+
+  private makeLocationKey(location: IGeoLocation): string {
+    return `${location.name.toLowerCase()}|${(location.country ?? "").toLowerCase()}`;
+  }
+
+  private isFreshForecast(snapshot: WeatherSnapshot): boolean {
+    return Date.now() - new Date(snapshot.fetchedAt).getTime() < TTL_MS;
+  }
+
+  private async fetchAndCacheWeather(
+    geolocation: IGeoLocation,
+  ): Promise<IWeatherResult> {
     const locationKey = this.makeLocationKey(geolocation);
     const cachedForecast =
       await this.weatherRepository.findLatestForecastByLocation(locationKey);
@@ -37,6 +68,7 @@ export class WeatherService {
         fetchedAt: cachedForecast.fetchedAt.toISOString(),
       };
     }
+
     try {
       const payload = await firstValueFrom(
         this.weatherApiService.fetchWeather(
@@ -53,6 +85,7 @@ export class WeatherService {
         longitude: geolocation.longitude,
         payload: JSON.stringify(payload),
       });
+
       logger.info("weather cache miss, fetched from API", { locationKey });
 
       return {
@@ -66,6 +99,7 @@ export class WeatherService {
         locationKey,
         error: String(apiError),
       });
+
       if (cachedForecast) {
         logger.warn("serving stale cache", { locationKey });
         return {
@@ -80,13 +114,5 @@ export class WeatherService {
       err.status = 503;
       throw err;
     }
-  }
-
-  private makeLocationKey(location: IGeoLocation): string {
-    return `${location.name.toLowerCase()}|${(location.country ?? "").toLowerCase()}`;
-  }
-
-  private isFreshForecast(snapshot: WeatherSnapshot): boolean {
-    return Date.now() - new Date(snapshot.fetchedAt).getTime() < TTL_MS;
   }
 }

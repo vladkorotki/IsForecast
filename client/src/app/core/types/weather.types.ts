@@ -56,3 +56,7 @@ export interface IHourlyData {
   hourly: IWeatherHourly;
   locationName: string;
 }
+
+export type WeatherRequestParams =
+  | { location: string }
+  | { lat: number; lon: number };

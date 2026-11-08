@@ -1,10 +1,7 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, tap } from 'rxjs';
-import { IsfWeatherApiService } from '../../../../core/services/isf-weather-api.service';
 import { IsfWeatherStateService } from '../../../../core/services/isf-weather-state.service';
 import { IsfSearchBarComponent } from '../../../weather/components/isf-search-bar/isf-search-bar.component';
 
@@ -16,34 +13,16 @@ import { IsfSearchBarComponent } from '../../../weather/components/isf-search-ba
 })
 export class IsfNotFoundComponent {
   private readonly router = inject(Router);
-  private readonly weatherApi = inject(IsfWeatherApiService);
   private readonly weatherStateService = inject(IsfWeatherStateService);
-  private readonly destroyRef = inject(DestroyRef);
-
-  protected readonly isLoading = signal(false);
 
   protected onSearch(city: string): void {
-    this.isLoading.set(true);
-
-    this.weatherApi
-      .getWeather(city)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .pipe(
-        tap(() => {
-          this.isLoading.set(false);
-          this.weatherStateService.setLocation(city);
-          this.router.navigate(['/']);
-        }),
-        catchError(() => {
-          this.isLoading.set(false);
-          console.error('City not found. Please try again.');
-          return EMPTY;
-        }),
-      )
-      .subscribe();
+    this.weatherStateService.resetCoords();
+    this.weatherStateService.setLocation(city);
+    this.router.navigate(['/']);
   }
 
   protected goHome(): void {
+    this.weatherStateService.setLocation(null);
     this.router.navigate(['/']);
   }
 }
