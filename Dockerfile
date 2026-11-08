@@ -13,8 +13,16 @@ RUN npm run build -- --configuration=production
 # ==========================================
 FROM node:22-alpine AS backend-builder
 WORKDIR /app/server
+
+# Устанавливаем инструменты для сборки нативных модулей
+RUN apk add --no-cache python3 make g++
+
 COPY server/package*.json ./
 RUN npm ci
+
+# ПРИНУДИТЕЛЬНО пересобираем better-sqlite3 под Alpine (musl)
+RUN npm rebuild better-sqlite3
+
 COPY server/ .
 RUN npm run build
 
