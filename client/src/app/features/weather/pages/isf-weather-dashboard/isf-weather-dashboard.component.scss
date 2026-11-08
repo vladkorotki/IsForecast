@@ -5,7 +5,6 @@
   max-width: 64rem;
   margin: 0 auto;
   padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 5vw, 3rem);
-  background-color: #f8f9fa;
   box-sizing: border-box;
 
   @media (max-height: 700px) {
@@ -73,4 +72,13 @@
     margin-bottom: 0.75rem;
     font-weight: 600;
   }
+}
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 1rem;
+  color: #555;
 }

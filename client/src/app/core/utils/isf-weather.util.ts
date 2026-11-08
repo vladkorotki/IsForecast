@@ -1,11 +1,17 @@
-import { IFilteredHourlyData, IDailyStats } from '../types/weather-stats.types';
-import { IWeatherCurrent, IWeatherDaily, IWeatherHourly } from '../types/weather.types';
+import { IDailyStats, IFilteredHourlyData } from '../types/weather-stats.types';
+import {
+  IGeoLocation,
+  IWeatherCurrent,
+  IWeatherDaily,
+  IWeatherHourly,
+} from '../types/weather.types';
 
 export function getDisplayWeather(
   activeDay: IWeatherDaily | null,
   currentDay: IWeatherDaily | undefined,
   current: IWeatherCurrent,
   hourly: IWeatherHourly,
+  location: IGeoLocation,
 ): IWeatherCurrent | null {
   if (!activeDay) return null;
 
@@ -32,6 +38,7 @@ export function getDisplayWeather(
     cloudCover: hourly.cloudCover[targetIndex],
     uvIndex: hourly.uvIndex[targetIndex],
     weatherCode: weatherCode,
+    location
   };
 }
 

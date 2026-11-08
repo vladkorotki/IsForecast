@@ -1,7 +1,10 @@
 .current-card {
-  border-radius: 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  border-radius: 1.5rem;
   margin-bottom: 1rem;
-  padding: clamp(0.75rem, 2vw, 1.25rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
 }
 
 .main-info {
@@ -25,7 +28,7 @@
 .temperature {
   font-size: clamp(3rem, 8vw, 4rem);
   font-weight: bold;
-  color: #333;
+  color: #0f172a;
   line-height: 1;
 }
 
@@ -33,7 +36,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #007bff;
+  color: #0ea5e9;
 }
 
 .big-icon {
@@ -42,16 +45,16 @@
 }
 
 .code-hint {
-  font-size: 0.6rem;
-  color: #888;
+  font-size: 0.75rem;
+  color: #475569;
   margin-top: 0.5rem;
+  font-weight: 500;
 }
 
 .details-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  border-top: 1px solid #eee;
   padding-top: 1.25rem;
 }
 
@@ -61,7 +64,6 @@
   align-items: center;
   text-align: center;
   gap: 0.25rem;
-
   flex: 1 1 calc(50% - 0.5rem);
   min-width: 6rem;
 
@@ -70,17 +72,18 @@
   }
 
   mat-icon {
-    color: #888;
+    color: #0ea5e9;
   }
 }
 
 .label {
   font-size: 0.875rem;
-  color: #888;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .value {
   font-size: 1.125rem;
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  color: #0f172a;
 }

@@ -7,14 +7,19 @@ import {
   IWeatherPayload,
 } from "../types/weather-api.types.js";
 import { HttpClientService } from "./http-client.service.js";
-const GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1";
-const FORECAST_URL = "https://api.open-meteo.com/v1";
-const TIMEOUT_MS = 5000;
+
 export class WeatherApiService {
   constructor(private readonly httpClientService: HttpClientService) {}
 
   public geocode(position: string): Observable<IGeoLocation | null> {
-    const url = `${WEATHER_CONFIG.GEOCODING_URL}?name=${encodeURIComponent(position)}&count=1&language=en&format=json`;
+    const params = new URLSearchParams({
+      name: position,
+      count: "1",
+      language: "en",
+      format: "json",
+    });
+
+    const url = `${WEATHER_CONFIG.GEOCODING_URL}?${params.toString()}`;
 
     return this.httpClientService.get<IOpenMeteoGeocodingResponse>(url).pipe(
       map((data: IOpenMeteoGeocodingResponse): IGeoLocation | null => {
@@ -28,6 +33,38 @@ export class WeatherApiService {
           country: first.country ?? null,
           latitude: first.latitude,
           longitude: first.longitude,
+        };
+      }),
+    );
+  }
+
+  public reverseGeocode(
+    lat: number,
+    lon: number,
+  ): Observable<IGeoLocation | null> {
+    const params = new URLSearchParams({
+      latitude: String(lat),
+      longitude: String(lon),
+      count: "1",
+      language: "en",
+      format: "json",
+    });
+
+    const url = `${WEATHER_CONFIG.REVERSE_GEOCODING_URL}?${params.toString()}`;
+
+    return this.httpClientService.get<any>(url).pipe(
+      map((data): IGeoLocation | null => {
+        const name = data.city || data.locality || data.principalSubdivision;
+
+        if (!name) {
+          return null;
+        }
+
+        return {
+          name: name,
+          country: data.countryName ?? null,
+          latitude: lat,
+          longitude: lon,
         };
       }),
     );

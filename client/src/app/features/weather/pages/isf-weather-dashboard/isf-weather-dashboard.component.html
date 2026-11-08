@@ -1,13 +1,16 @@
 <!-- @let weatherDataT = weatherData(); -->
 <div class="dashboard">
-  @if (weatherData(); as data) {
+  @if (isLoading()) {
+    <div class="loading-overlay">
+      <mat-spinner diameter="100"></mat-spinner>
+      <p>Fetching weather data...</p>
+    </div>
+  } @else if (weatherData(); as data) {
     <div class="sticky-top">
-      <h2 class="city-title">
-        {{ data.location.name }}, {{ data.location.country }}
-        @if (data.stale) {
-          <span class="stale-badge">The data is outdated</span>
-        }
-      </h2>
+      @if (data.stale) {
+        <span class="stale-badge">The data is outdated</span>
+      }
+
       @if (displayCurrentWeather(); as current) {
         <isf-current-weather [current]="current">
           <isf-search-bar (search)="onSearch($event)"></isf-search-bar>
