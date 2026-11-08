@@ -1,5 +1,7 @@
+import path from 'path';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
+import { WeatherSnapshot } from './entities/WeatherSnapshot.js';
 
 export const AppDataSource = new DataSource({
   type: 'better-sqlite3',
@@ -7,6 +9,6 @@ export const AppDataSource = new DataSource({
   enableWAL: true,
   synchronize: false,
   logging: true,
-  entities: ['src/entities/**/*.ts'],
-  migrations: ['src/migrations/**/*.ts'],
+  entities: [WeatherSnapshot],
+  migrations: [path.join(import.meta.dirname, 'migrations', '*.{ts,js}')],
 });

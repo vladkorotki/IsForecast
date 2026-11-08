@@ -5,6 +5,7 @@ import 'reflect-metadata';
 import { AppDataSource } from './data-source.js';
 import { errorHandler } from './midlwares/error-handler.js';
 import { weatherRouter } from './routes/weather.router.js';
+import { logger } from './utils/logger.js';
 
 const PORT = Number(process.env.PORT ?? 3000);
 
@@ -12,7 +13,9 @@ async function bootstrap() {
   try {
     dotenv.config();
     await AppDataSource.initialize();
-    console.log('Database connected successfully');
+    logger.info('Database connected successfully');
+    await AppDataSource.runMigrations();
+    logger.info('database connected and migrations applied');
 
     const app = express();
     app.use(cors());
@@ -26,10 +29,10 @@ async function bootstrap() {
     app.use(errorHandler);
 
     app.listen(PORT, () => {
-      console.log(`Server listening on http://localhost:${PORT}`);
+      logger.info(`Server listening on http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error('Failed to start server:', error);
+    logger.error('Failed to start server:', { error });
     process.exit(1);
   }
 }
