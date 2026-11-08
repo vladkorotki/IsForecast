@@ -1,4 +1,4 @@
-export type LogPriorityType = "info" | "warn" | "error";
+export type LogPriorityType = 'info' | 'warn' | 'error';
 export type LogMetadataType = Record<string, unknown>;
 
 export interface ILogEntry {

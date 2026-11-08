@@ -1,12 +1,12 @@
-import { map, Observable } from "rxjs";
-import { WEATHER_CONFIG } from "../config/weather.config.js";
+import { map, Observable } from 'rxjs';
+import { WEATHER_CONFIG } from '../config/weather.config.js';
 import {
   IGeoLocation,
   IOpenMeteoForecastResponse,
   IOpenMeteoGeocodingResponse,
   IWeatherPayload,
-} from "../types/weather-api.types.js";
-import { HttpClientService } from "./http-client.service.js";
+} from '../types/weather-api.types.js';
+import { HttpClientService } from './http-client.service.js';
 
 export class WeatherApiService {
   constructor(private readonly httpClientService: HttpClientService) {}
@@ -14,9 +14,9 @@ export class WeatherApiService {
   public geocode(position: string): Observable<IGeoLocation | null> {
     const params = new URLSearchParams({
       name: position,
-      count: "1",
-      language: "en",
-      format: "json",
+      count: '1',
+      language: 'en',
+      format: 'json',
     });
 
     const url = `${WEATHER_CONFIG.GEOCODING_URL}?${params.toString()}`;
@@ -38,16 +38,13 @@ export class WeatherApiService {
     );
   }
 
-  public reverseGeocode(
-    lat: number,
-    lon: number,
-  ): Observable<IGeoLocation | null> {
+  public reverseGeocode(lat: number, lon: number): Observable<IGeoLocation | null> {
     const params = new URLSearchParams({
       latitude: String(lat),
       longitude: String(lon),
-      count: "1",
-      language: "en",
-      format: "json",
+      count: '1',
+      language: 'en',
+      format: 'json',
     });
 
     const url = `${WEATHER_CONFIG.REVERSE_GEOCODING_URL}?${params.toString()}`;

@@ -1,5 +1,5 @@
 @let dayInfo = day().weatherCode | isfWeatherInfo;
-<mat-card class="day-card" [class.selected]="isSelected()" (click)="select.emit(day())">
+<mat-card class="day-card" [class.selected]="isSelected()" (click)="daySelected.emit(day())">
   <mat-card-content>
     <div class="day-name">{{ day().date | date: 'EEE' }}</div>
     <div class="day-date">{{ day().date | date: 'd MMM' }}</div>

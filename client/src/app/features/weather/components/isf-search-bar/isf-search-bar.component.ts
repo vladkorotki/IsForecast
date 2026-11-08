@@ -18,7 +18,7 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './isf-search-bar.component.html',
 })
 export class IsfSearchBarComponent {
-  readonly search = output<string>();
+  readonly searchLocation = output<string>();
 
   protected readonly searchControl = new FormControl('');
 
@@ -26,7 +26,7 @@ export class IsfSearchBarComponent {
     const query = this.searchControl.value?.trim();
     event.stopPropagation();
     if (query) {
-      this.search.emit(query);
+      this.searchLocation.emit(query);
     }
   }
 }

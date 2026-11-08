@@ -10,7 +10,7 @@ export class IsfWeatherApiService {
   private readonly http = inject(HttpClient);
 
   public getWeather(params: WeatherRequestParams): Observable<IWeatherResponse> {
-    let query = '';
+    let query: string;
 
     if ('location' in params) {
       query = `location=${encodeURIComponent(params.location)}`;

@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { IsfHourlyChartComponent } from '../../components/isf-hourly-chart/isf-h
   styleUrl: './isf-hourly-forecast.component.scss',
   templateUrl: './isf-hourly-forecast.component.html',
 })
-export class IsfHourlyForecastComponent {
+export class IsfHourlyForecastComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly location = inject(Location);
   private readonly weatherStateService = inject(IsfWeatherStateService);

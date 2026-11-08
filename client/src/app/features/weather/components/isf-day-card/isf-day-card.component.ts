@@ -1,8 +1,8 @@
-import { IsfWeatherInfoPipe } from './../../../../core/pipes/weather-info/isf-weather-info-pipe';
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { IWeatherDaily } from '../../../../core/types/weather.types';
+import { IsfWeatherInfoPipe } from './../../../../core/pipes/weather-info/isf-weather-info-pipe';
 
 @Component({
   imports: [CommonModule, MatCardModule, IsfWeatherInfoPipe],
@@ -13,5 +13,5 @@ import { IWeatherDaily } from '../../../../core/types/weather.types';
 export class IsfDayCardComponent {
   readonly day = input.required<IWeatherDaily>();
   readonly isSelected = input.required<boolean>();
-  readonly select = output<IWeatherDaily>();
+  readonly daySelected = output<IWeatherDaily>();
 }

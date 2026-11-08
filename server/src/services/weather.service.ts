@@ -1,10 +1,10 @@
-import { firstValueFrom } from "rxjs";
-import { WeatherSnapshot } from "../entities/WeatherSnapshot.js";
-import { WeatherRepository } from "../repositorises/weather.repository.js";
-import { IGeoLocation } from "../types/weather-api.types.js";
-import { IWeatherResult } from "../types/weather.types.js";
-import { logger } from "../utils/logger.js";
-import { WeatherApiService } from "./weather-api.service.js";
+import { firstValueFrom } from 'rxjs';
+import { WeatherSnapshot } from '../entities/WeatherSnapshot.js';
+import { WeatherRepository } from '../repositorises/weather.repository.js';
+import { IGeoLocation } from '../types/weather-api.types.js';
+import { IWeatherResult } from '../types/weather.types.js';
+import { logger } from '../utils/logger.js';
+import { WeatherApiService } from './weather-api.service.js';
 const TTL_MS = 30 * 60 * 1000;
 
 export class WeatherService {
@@ -14,12 +14,10 @@ export class WeatherService {
   ) {}
 
   public async getWeather(locationQuery: string): Promise<IWeatherResult> {
-    const geolocation = await firstValueFrom(
-      this.weatherApiService.geocode(locationQuery),
-    );
+    const geolocation = await firstValueFrom(this.weatherApiService.geocode(locationQuery));
 
     if (!geolocation) {
-      const err: any = new Error("Location not found");
+      const err: any = new Error('Location not found');
       err.status = 404;
       throw err;
     }
@@ -27,16 +25,11 @@ export class WeatherService {
     return this.fetchAndCacheWeather(geolocation);
   }
 
-  public async getWeatherByCoords(
-    lat: number,
-    lon: number,
-  ): Promise<IWeatherResult> {
-    const geolocation = await firstValueFrom(
-      this.weatherApiService.reverseGeocode(lat, lon),
-    );
+  public async getWeatherByCoords(lat: number, lon: number): Promise<IWeatherResult> {
+    const geolocation = await firstValueFrom(this.weatherApiService.reverseGeocode(lat, lon));
 
     if (!geolocation) {
-      const err: any = new Error("Location not found for these coordinates");
+      const err: any = new Error('Location not found for these coordinates');
       err.status = 404;
       throw err;
     }
@@ -45,22 +38,19 @@ export class WeatherService {
   }
 
   private makeLocationKey(location: IGeoLocation): string {
-    return `${location.name.toLowerCase()}|${(location.country ?? "").toLowerCase()}`;
+    return `${location.name.toLowerCase()}|${(location.country ?? '').toLowerCase()}`;
   }
 
   private isFreshForecast(snapshot: WeatherSnapshot): boolean {
     return Date.now() - new Date(snapshot.fetchedAt).getTime() < TTL_MS;
   }
 
-  private async fetchAndCacheWeather(
-    geolocation: IGeoLocation,
-  ): Promise<IWeatherResult> {
+  private async fetchAndCacheWeather(geolocation: IGeoLocation): Promise<IWeatherResult> {
     const locationKey = this.makeLocationKey(geolocation);
-    const cachedForecast =
-      await this.weatherRepository.findLatestForecastByLocation(locationKey);
+    const cachedForecast = await this.weatherRepository.findLatestForecastByLocation(locationKey);
 
     if (cachedForecast && this.isFreshForecast(cachedForecast)) {
-      logger.info("weather forecast hit", { locationKey });
+      logger.info('weather forecast hit', { locationKey });
       return {
         location: geolocation,
         payload: JSON.parse(cachedForecast.payload),
@@ -71,10 +61,7 @@ export class WeatherService {
 
     try {
       const payload = await firstValueFrom(
-        this.weatherApiService.fetchWeather(
-          geolocation.latitude,
-          geolocation.longitude,
-        ),
+        this.weatherApiService.fetchWeather(geolocation.latitude, geolocation.longitude),
       );
 
       const snapshot = await this.weatherRepository.saveSnapshot({
@@ -86,7 +73,7 @@ export class WeatherService {
         payload: JSON.stringify(payload),
       });
 
-      logger.info("weather cache miss, fetched from API", { locationKey });
+      logger.info('weather cache miss, fetched from API', { locationKey });
 
       return {
         location: geolocation,
@@ -95,13 +82,13 @@ export class WeatherService {
         fetchedAt: snapshot.fetchedAt.toISOString(),
       };
     } catch (apiError) {
-      logger.error("weather API failed", {
+      logger.error('weather API failed', {
         locationKey,
         error: String(apiError),
       });
 
       if (cachedForecast) {
-        logger.warn("serving stale cache", { locationKey });
+        logger.warn('serving stale cache', { locationKey });
         return {
           location: geolocation,
           payload: JSON.parse(cachedForecast.payload),
@@ -110,7 +97,7 @@ export class WeatherService {
         };
       }
 
-      const err: any = new Error("Weather service temporarily unavailable");
+      const err: any = new Error('Weather service temporarily unavailable');
       err.status = 503;
       throw err;
     }
