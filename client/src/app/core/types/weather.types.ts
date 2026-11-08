@@ -12,6 +12,7 @@ export interface IWeatherCurrent {
   cloudCover: number;
   uvIndex: number;
   weatherCode: number;
+  location: IGeoLocation;
 }
 
 export interface IWeatherHourly {
@@ -57,6 +58,4 @@ export interface IHourlyData {
   locationName: string;
 }
 
-export type WeatherRequestParams =
-  | { location: string }
-  | { lat: number; lon: number };
+export type WeatherRequestParams = { location: string } | { lat: number; lon: number };

@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, output, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { IsfWeatherInfoPipe } from '../../../../core/pipes/weather-info/isf-weather-info-pipe';
 import { IWeatherDaily } from '../../../../core/types/weather.types';
+import { IsfDayCardComponent } from '../isf-day-card/isf-day-card.component';
 
 @Component({
-  imports: [CommonModule, MatCardModule, IsfWeatherInfoPipe],
+  imports: [CommonModule, MatCardModule, IsfDayCardComponent],
   selector: 'isf-daily-forecast',
   styleUrl: './isf-daily-forecast.component.scss',
   templateUrl: './isf-daily-forecast.component.html',

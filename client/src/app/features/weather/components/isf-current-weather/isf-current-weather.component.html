@@ -3,6 +3,11 @@
 
 <mat-card class="current-card">
   <mat-card-content>
+    <div class="card-header">
+      <h2 class="city-title">
+        {{ currentWeather.location.name }}<span>, {{ currentWeather.location.country }}</span>
+      </h2>
+    </div>
     <div class="main-info">
       <div class="main-info-data">
         <div class="temperature">{{ currentWeather.temperature | number: '1.0-0' }}°C</div>

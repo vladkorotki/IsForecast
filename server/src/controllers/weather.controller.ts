@@ -15,14 +15,12 @@ export class WeatherController {
       const lon = Number(req.query.lon);
       const location = String(req.query.location ?? "").trim();
 
-      // Режим 1: Поиск по координатам
       if (!isNaN(lat) && !isNaN(lon) && req.query.lat && req.query.lon) {
         const result = await this.weatherService.getWeatherByCoords(lat, lon);
         res.json(result);
         return;
       }
 
-      // Режим 2: Поиск по строке
       if (!location || location.length > 100) {
         logger.warn("Invalid location query param", { location });
         res
