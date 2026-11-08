@@ -81,10 +81,11 @@ export class WeatherService {
         stale: false,
         fetchedAt: snapshot.fetchedAt.toISOString(),
       };
-    } catch (apiError) {
+    } catch (apiError: any) {
       logger.error('weather API failed', {
         locationKey,
-        error: String(apiError),
+        error: apiError.message || apiError,
+        stack: apiError.stack,
       });
 
       if (cachedForecast) {
