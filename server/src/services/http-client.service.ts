@@ -1,5 +1,5 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { catchError, defer, map, Observable, throwError } from "rxjs";
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { catchError, defer, map, Observable, throwError } from 'rxjs';
 
 export class HttpClientService {
   public get<T>(url: string): Observable<T> {
@@ -10,16 +10,15 @@ export class HttpClientService {
   }
 
   private handleError(error: AxiosError): Observable<never> {
-    let errorMessage = "The unknow error happened. We apologize";
-    let statusCode = "500";
+    let errorMessage = 'The unknow error happened. We apologize';
+    let statusCode = '500';
     if (error.response) {
       statusCode = String(error.response.status);
       errorMessage =
-        (error.response.data as any)?.message ||
-        `Server error with status ${statusCode}`;
+        (error.response.data as any)?.message || `Server error with status ${statusCode}`;
     } else if (error.request) {
-      errorMessage = "Сервер не отвечает. Проверьте сетевое соединение.";
-      statusCode = "504";
+      errorMessage = 'Сервер не отвечает. Проверьте сетевое соединение.';
+      statusCode = '504';
     } else {
       errorMessage = error.message;
     }

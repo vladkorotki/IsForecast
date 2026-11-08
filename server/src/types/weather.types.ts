@@ -1,4 +1,4 @@
-import { IGeoLocation, IWeatherPayload } from "./weather-api.types.js";
+import { IGeoLocation, IWeatherPayload } from './weather-api.types.js';
 
 export interface IWeatherResult {
   location: IGeoLocation;

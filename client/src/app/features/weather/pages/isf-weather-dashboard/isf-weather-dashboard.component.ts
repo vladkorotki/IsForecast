@@ -67,7 +67,7 @@ export class IsfWeatherDashboardComponent {
       data.payload.daily[0],
       data.payload.current,
       data.payload.hourly,
-      data.location
+      data.location,
     );
   });
 

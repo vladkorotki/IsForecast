@@ -38,7 +38,7 @@ export function getDisplayWeather(
     cloudCover: hourly.cloudCover[targetIndex],
     uvIndex: hourly.uvIndex[targetIndex],
     weatherCode: weatherCode,
-    location
+    location,
   };
 }
 
