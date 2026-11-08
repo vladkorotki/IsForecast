@@ -1,0 +1,23 @@
+<div class="page-container">
+  <button mat-button (click)="goBack()" class="back-btn">
+    <mat-icon>arrow_back</mat-icon> Back to Dashboard
+  </button>
+
+  @if (data()) {
+    <h2>{{ pageTitle() }}</h2>
+
+    <div class="charts-grid">
+      @if (chart1Config(); as config1) {
+        <div class="chart-card">
+          <isf-hourly-chart [config]="config1" />
+        </div>
+      }
+
+      @if (chart2Config(); as config2) {
+        <div class="chart-card">
+          <isf-hourly-chart [config]="config2" />
+        </div>
+      }
+    </div>
+  }
+</div>

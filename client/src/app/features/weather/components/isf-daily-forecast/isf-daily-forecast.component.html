@@ -1,0 +1,6 @@
+<div class="daily-slider">
+  @for (day of daily(); track day.date; let i = $index) {
+    <isf-day-card [day]="day" [isSelected]="selectedIndex() === i" (daySelected)="selectDay(i)">
+    </isf-day-card>
+  }
+</div>

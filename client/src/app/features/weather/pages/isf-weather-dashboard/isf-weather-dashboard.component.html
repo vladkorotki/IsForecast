@@ -1,0 +1,38 @@
+<!-- @let weatherDataT = weatherData(); -->
+<div class="dashboard">
+  @if (isLoading()) {
+    <div class="loading-overlay">
+      <mat-spinner diameter="100"></mat-spinner>
+      <p>Fetching weather data...</p>
+    </div>
+  } @else if (weatherData(); as data) {
+    <div class="sticky-top">
+      @if (data.stale) {
+        <span class="stale-badge">The data is outdated</span>
+      }
+
+      @if (displayCurrentWeather(); as current) {
+        <isf-current-weather [current]="current">
+          <isf-search-bar (searchLocation)="onSearch($event)"></isf-search-bar>
+          <button mat-flat-button color="primary" class="chart-btn" (click)="goToHourlyChart()">
+            View 24-Hour Chart
+          </button>
+        </isf-current-weather>
+      }
+    </div>
+
+    <div class="scrollable-content">
+      <div class="forecast-section">
+        <h3>7-day forecast</h3>
+        <isf-daily-forecast
+          [daily]="data.payload.daily"
+          (selectedDayChange)="onDaySelected($event)"
+        >
+        </isf-daily-forecast>
+      </div>
+      @if (activeDay(); as day) {
+        <isf-weather-details [daily]="day" [hourly]="data.payload.hourly"> </isf-weather-details>
+      }
+    </div>
+  }
+</div>

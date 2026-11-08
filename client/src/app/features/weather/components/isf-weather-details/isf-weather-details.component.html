@@ -1,0 +1,56 @@
+@if (stats(); as s) {
+  <mat-card class="details-card">
+    <mat-card-content>
+      <div class="details-header">
+        <h3>Details at {{ daily().date | date: 'd MMMM' }}</h3>
+        <span class="subtitle">Aggregated data</span>
+      </div>
+
+      <div class="details-flex">
+        <div class="detail-item">
+          <mat-icon>water_drop</mat-icon>
+          <span class="label">Humidity</span>
+          <span class="value">{{ s.maxHumidity }}%</span>
+          <span class="hint">Maximum per day</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon>speed</mat-icon>
+          <span class="label">Pressure</span>
+          <span class="value">{{ s.avgPressure | isfPressure: 'mmHg' }}</span>
+          <span class="hint">Average</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon>air</mat-icon>
+          <span class="label">Wind</span>
+          <span class="value">{{ s.maxWind }} m/s</span>
+          <span class="hint">Max. speed</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon>umbrella</mat-icon>
+          <span class="label">Precipitation</span>
+          <span class="value">{{ s.rainHours }} ч.</span>
+          <span class="hint">A Time of Rain</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon>wb_sunny</mat-icon>
+          <span class="label">UV index</span>
+          <span class="value">{{ s.maxUv }}</span>
+          <span class="hint">{{ s.uvText }}</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon>wb_twilight</mat-icon>
+          <span class="label">Sun</span>
+          <span class="value sun-times"
+            >{{ s.sunrise | date: 'HH:mm' }} / {{ s.sunset | date: 'HH:mm' }}</span
+          >
+          <span class="hint">Sunrise / Sunset</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+}

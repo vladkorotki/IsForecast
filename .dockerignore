@@ -1,0 +1,8 @@
+**/node_modules
+**/dist
+**/.angular
+**/data
+.git
+.github
+.vscode
+*.md

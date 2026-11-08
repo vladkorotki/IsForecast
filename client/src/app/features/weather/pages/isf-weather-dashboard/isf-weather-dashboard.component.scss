@@ -1,0 +1,84 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 5vw, 3rem);
+  box-sizing: border-box;
+
+  @media (max-height: 700px) {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+.sticky-top {
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
+}
+
+.scrollable-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin-top: 1rem;
+  padding-right: 0.5rem;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+}
+
+.city-title {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  color: #333;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stale-badge {
+  font-size: 0.875rem;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: normal;
+}
+
+.error {
+  color: #dc3545;
+  padding: 1.25rem;
+  background: #f8d7da;
+  border-radius: 0.5rem;
+  margin-top: 1.25rem;
+  word-wrap: break-word;
+}
+
+.forecast-section {
+  margin-bottom: 1.5rem;
+
+  h3 {
+    font-size: 1.125rem;
+    color: #555;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+}
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 1rem;
+  color: #555;
+}
