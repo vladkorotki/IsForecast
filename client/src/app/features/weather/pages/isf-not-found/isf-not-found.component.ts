@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { IsfWeatherStateService } from '../../../../core/services/isf-weather-state.service';
-import { IsfSearchBarComponent } from '../../../weather/components/isf-search-bar/isf-search-bar.component';
+import { IsfSearchBarComponent } from '../../components/isf-search-bar/isf-search-bar.component';
 
 @Component({
   imports: [MatButtonModule, MatIconModule, IsfSearchBarComponent],
