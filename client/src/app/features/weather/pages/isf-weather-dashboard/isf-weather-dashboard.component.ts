@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   computed,
@@ -38,6 +39,7 @@ import { IsfWeatherDetailsComponent } from '../../components/isf-weather-details
   selector: 'isf-weather-dashboard',
   styleUrl: './isf-weather-dashboard.component.scss',
   templateUrl: './isf-weather-dashboard.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IsfWeatherDashboardComponent {
   private readonly weatherApi = inject(IsfWeatherApiService);

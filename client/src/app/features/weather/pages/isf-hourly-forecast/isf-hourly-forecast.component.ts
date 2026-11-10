@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { IsfHourlyChartComponent } from '../../components/isf-hourly-chart/isf-h
   selector: 'isf-hourly-forecast',
   styleUrl: './isf-hourly-forecast.component.scss',
   templateUrl: './isf-hourly-forecast.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IsfHourlyForecastComponent implements OnInit {
   private readonly router = inject(Router);

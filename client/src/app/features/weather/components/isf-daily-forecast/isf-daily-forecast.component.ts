@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { IWeatherDaily } from '../../../../core/types/weather.types';
 import { IsfDayCardComponent } from '../isf-day-card/isf-day-card.component';
@@ -9,6 +9,7 @@ import { IsfDayCardComponent } from '../isf-day-card/isf-day-card.component';
   selector: 'isf-daily-forecast',
   styleUrl: './isf-daily-forecast.component.scss',
   templateUrl: './isf-daily-forecast.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IsfDailyForecastComponent {
   public readonly daily = input.required<IWeatherDaily[]>();
