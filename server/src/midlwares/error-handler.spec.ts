@@ -38,7 +38,7 @@ describe('errorHandler', () => {
   });
 
   it('should fallback to 500 and default message for unknown errors', () => {
-    const error = {}; // Ошибка без статуса и сообщения
+    const error = {};
 
     errorHandler(error, mockRequest as Request, mockResponse as Response, mockNext);
 
@@ -51,7 +51,7 @@ describe('errorHandler', () => {
   });
 
   it('should handle string status correctly', () => {
-    const error = { status: '400', message: 'Bad Request' }; // Статус приходит строкой
+    const error = { status: '400', message: 'Bad Request' };
 
     errorHandler(error, mockRequest as Request, mockResponse as Response, mockNext);
 

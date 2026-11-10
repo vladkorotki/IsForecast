@@ -12,7 +12,7 @@ describe('HttpClientService', () => {
   beforeEach(() => {
     service = new HttpClientService();
 
-    // @ts-expect-error - Игнорируем конфликт типов между axios и axios-mock-adapter в ESM
+    // @ts-expect-error - ignore conflict between axios & axios-mock-adapter в ESM
     mockAxios = new MockAdapter(axios);
   });
 
@@ -38,7 +38,7 @@ describe('HttpClientService', () => {
   });
 
   it('should use fallback message if response has no message', async () => {
-    mockAxios.onGet(testUrl).reply(500, {}); // Пустой ответ
+    mockAxios.onGet(testUrl).reply(500, {});
 
     try {
       await firstValueFrom(service.get(testUrl));
@@ -52,7 +52,7 @@ describe('HttpClientService', () => {
   it('should handle network error (no response)', async () => {
     mockAxios.onGet(testUrl).reply(() => {
       const error = new Error('Network Error') as any;
-      error.request = {}; // <-- Вручную добавляем request
+      error.request = {};
       throw error;
     });
 
@@ -68,7 +68,7 @@ describe('HttpClientService', () => {
   it('should handle timeout error', async () => {
     mockAxios.onGet(testUrl).reply(() => {
       const error = new Error('Timeout') as any;
-      error.request = {}; // <-- Вручную добавляем request
+      error.request = {};
       throw error;
     });
 

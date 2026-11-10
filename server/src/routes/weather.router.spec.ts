@@ -15,7 +15,6 @@ describe('Weather Router', () => {
   });
 
   it('should have a GET /weather route', () => {
-    // Приводим stack к нужному типу через unknown, чтобы обойти строгую типизацию Express
     const stack = weatherRouter.stack as unknown as Array<{
       route?: {
         path: string;

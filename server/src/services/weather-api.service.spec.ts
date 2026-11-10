@@ -69,7 +69,7 @@ describe('WeatherApiService', () => {
   });
 
   it('should return null if reverse geocode finds no city', async () => {
-    mockHttpClient.get.mockReturnValue(of({})); // Нет city, locality и т.д.
+    mockHttpClient.get.mockReturnValue(of({}));
 
     const result = await new Promise((resolve) => {
       service.reverseGeocode(0, 0).subscribe(resolve);
@@ -121,7 +121,6 @@ describe('WeatherApiService', () => {
       expect.stringContaining(`${WEATHER_CONFIG.FORECAST_URL}?latitude=53.9&longitude=27.5`),
     );
 
-    // Проверяем, что маппинг прошел успешно
     expect(result).toEqual(
       expect.objectContaining({
         current: expect.objectContaining({ temperature: 10, humidity: 80 }),

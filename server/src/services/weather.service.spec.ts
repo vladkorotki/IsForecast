@@ -109,7 +109,7 @@ describe('WeatherService', () => {
 
     it('should fetch from API and save to cache if cache is stale', async () => {
       mockApi.geocode.mockReturnValue(of(mockGeo));
-      const staleDate = new Date(Date.now() - 1000 * 60 * 60); // Час назад
+      const staleDate = new Date(Date.now() - 1000 * 60 * 60);
       mockRepo.findLatestForecastByLocation.mockResolvedValue({
         payload: JSON.stringify({ current: { temperature: 5 } }),
         fetchedAt: staleDate,
@@ -120,7 +120,7 @@ describe('WeatherService', () => {
       const result = await service.getWeather('Minsk');
 
       expect(result.stale).toBe(false);
-      expect(result.payload).toEqual(mockPayload); // Взяли новые данные, а не из кэша
+      expect(result.payload).toEqual(mockPayload);
       expect(mockApi.fetchWeather).toHaveBeenCalled();
     });
 

@@ -23,7 +23,7 @@ describe('WeatherController', () => {
 
     mockResponse = {
       json: vi.fn(),
-      status: vi.fn().mockReturnThis(), // Возвращаем сам res для цепочки вызовов
+      status: vi.fn().mockReturnThis(),
     };
 
     mockNext = vi.fn();
@@ -66,8 +66,7 @@ describe('WeatherController', () => {
   });
 
   it('should return 400 if location is too long', async () => {
-    mockRequest = { query: { location: 'A'.repeat(101) } }; // Строка длиннее 100 символов
-
+    mockRequest = { query: { location: 'A'.repeat(101) } };
     await controller.getWeather(mockRequest as Request, mockResponse as Response, mockNext);
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
