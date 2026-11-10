@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { IsfPressurePipe } from '../../../../core/pipes/pressure/isf-pressure-pipe';
@@ -11,6 +11,7 @@ import { IWeatherCurrent } from '../../../../core/types/weather.types';
   selector: 'isf-current-weather',
   styleUrl: './isf-current-weather.component.scss',
   templateUrl: './isf-current-weather.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IsfCurrentWeatherComponent {
   readonly current = input.required<IWeatherCurrent>();

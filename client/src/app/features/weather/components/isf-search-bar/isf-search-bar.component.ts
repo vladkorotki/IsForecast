@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'isf-search-bar',
   styleUrl: './isf-search-bar.component.scss',
   templateUrl: './isf-search-bar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IsfSearchBarComponent {
   readonly searchLocation = output<string>();
