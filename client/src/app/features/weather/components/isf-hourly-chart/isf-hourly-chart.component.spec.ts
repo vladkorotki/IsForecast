@@ -33,7 +33,6 @@ describe('IsfHourlyChartComponent', () => {
 
     const canvas = document.createElement('canvas');
 
-
     const mockContext = {
       fillRect: vi.fn(),
       clearRect: vi.fn(),
@@ -59,7 +58,6 @@ describe('IsfHourlyChartComponent', () => {
       rect: vi.fn(),
       clip: vi.fn(),
     };
-
 
     canvas.getContext = vi.fn().mockReturnValue(mockContext);
 
