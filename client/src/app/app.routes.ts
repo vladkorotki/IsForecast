@@ -18,7 +18,7 @@ export const routes: Routes = [
   {
     path: 'not-found',
     loadComponent: () =>
-      import('./features/errors/pages/isf-not-found/isf-not-found.component').then(
+      import('./features/weather/pages/isf-not-found/isf-not-found.component').then(
         (m) => m.IsfNotFoundComponent,
       ),
   },
