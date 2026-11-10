@@ -1,8 +1,8 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { IWeatherDaily } from '../../../../core/types/weather.types';
 import { IsfDailyForecastComponent } from './isf-daily-forecast.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 type TestableDailyForecastComponent = IsfDailyForecastComponent & {
   selectDay: (index: number) => void;
@@ -41,7 +41,7 @@ describe('IsfDailyForecastComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [IsfDailyForecastComponent],
-      schemas: [NO_ERRORS_SCHEMA], // <-- Отключаем ошибки о неизвестных тегах
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(IsfDailyForecastComponent);
@@ -74,15 +74,12 @@ describe('IsfDailyForecastComponent', () => {
   it('should update selected index and emit day on selectDay', () => {
     const emitSpy = vi.spyOn(component.selectedDayChange, 'emit');
 
-    // Доступ к protected методу
     const testableComponent = component as unknown as { selectDay: (i: number) => void };
-    testableComponent.selectDay(1); // Выбираем второй день
+    testableComponent.selectDay(1);
 
-    // Проверяем, что selectedIndex обновился (он protected, достаем через сигнал)
     const signals = component as unknown as { selectedIndex: () => number };
     expect(signals.selectedIndex()).toBe(1);
 
-    // Проверяем, что эмитнулся правильный день
     expect(emitSpy).toHaveBeenCalledWith(mockDaily[1]);
   });
 });

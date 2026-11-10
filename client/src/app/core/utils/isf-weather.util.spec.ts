@@ -10,7 +10,7 @@ import {
   filterHourlyForDay,
   getDisplayWeather,
   getUvDescription,
-} from './isf-weather.util'; // Укажи правильный путь к файлу
+} from './isf-weather.util';
 
 describe('Weather Utils', () => {
   const mockLocation: IGeoLocation = {
@@ -42,12 +42,7 @@ describe('Weather Utils', () => {
   };
 
   const mockHourly: IWeatherHourly = {
-    time: [
-      '2026-11-10T10:00', // Индекс 0
-      '2026-11-10T12:00', // Индекс 1
-      '2026-11-10T14:00', // Индекс 2
-      '2026-11-11T10:00', // Другой день
-    ],
+    time: ['2026-11-10T10:00', '2026-11-10T12:00', '2026-11-10T14:00', '2026-11-11T10:00'],
     temperature: [6, 8, 9, 5],
     precipitation: [0, 0.5, 0, 0],
     humidity: [85, 80, 75, 90],
@@ -112,11 +107,11 @@ describe('Weather Utils', () => {
 
       expect(result).not.toBeNull();
       if (result) {
-        expect(result.maxHumidity).toBe(85); // Максимум из [85, 80, 75]
-        expect(result.avgPressure).toBe(1011); // (1010+1012+1011)/3 = 1011
+        expect(result.maxHumidity).toBe(85);
+        expect(result.avgPressure).toBe(1011);
         expect(result.maxUv).toBe('4.0');
         expect(result.uvText).toBe('Moderate');
-        expect(result.rainHours).toBe(1); // Только 0.5 > 0
+        expect(result.rainHours).toBe(1);
         expect(result.maxWind).toBe(10);
         expect(result.sunrise).toBe(mockDaily.sunrise);
         expect(result.sunset).toBe(mockDaily.sunset);
@@ -126,7 +121,6 @@ describe('Weather Utils', () => {
 
   describe('getDisplayWeather', () => {
     beforeEach(() => {
-      // Мокаем время, чтобы "текущий час" был предсказуемым (12:00)
       vi.useFakeTimers();
       vi.setSystemTime(new Date('2026-11-10T12:30:00'));
     });
@@ -153,15 +147,12 @@ describe('Weather Utils', () => {
     });
 
     it('should return current weather for today (if it is today)', () => {
-      // Передаем activeDay = currentDay (сегодня)
       const result = getDisplayWeather(mockDaily, mockDaily, mockCurrent, mockHourly, mockLocation);
 
       expect(result).not.toBeNull();
       if (result) {
-        // Погода берется за 12:00 (индекс 1 в mockHourly)
         expect(result.temperature).toBe(8);
         expect(result.humidity).toBe(80);
-        // Код берется из current, так как это сегодня
         expect(result.weatherCode).toBe(2);
         expect(result.location).toEqual(mockLocation);
       }
@@ -170,7 +161,6 @@ describe('Weather Utils', () => {
     it('should return forecast weather for a future day', () => {
       const futureDay: IWeatherDaily = { ...mockDaily, date: '2026-11-11', weatherCode: 3 };
 
-      // Добавим данные на будущий день
       const extendedHourly = {
         ...mockHourly,
         time: [...mockHourly.time, '2026-11-11T12:00'],
@@ -181,7 +171,6 @@ describe('Weather Utils', () => {
         uvIndex: [...mockHourly.uvIndex, 5],
       };
 
-      // Передаем activeDay = будущий день, currentDay = сегодня
       const result = getDisplayWeather(
         futureDay,
         mockDaily,
@@ -192,10 +181,8 @@ describe('Weather Utils', () => {
 
       expect(result).not.toBeNull();
       if (result) {
-        // Температура берется за 12:00 будущего дня (последний добавленный)
         expect(result.temperature).toBe(15);
         expect(result.humidity).toBe(60);
-        // Код берется из futureDay, так как это НЕ сегодня
         expect(result.weatherCode).toBe(3);
       }
     });

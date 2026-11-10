@@ -9,14 +9,13 @@ describe('IsfCurrentWeatherComponent', () => {
   let component: IsfCurrentWeatherComponent;
   let fixture: ComponentFixture<IsfCurrentWeatherComponent>;
 
-  // Фейковые данные, строго по интерфейсу IWeatherCurrent
   const mockWeather: IWeatherCurrent = {
     temperature: 15,
     humidity: 80,
     pressure: 1012,
     cloudCover: 50,
     uvIndex: 3,
-    weatherCode: 3, // Overcast
+    weatherCode: 3,
     location: {
       name: 'Minsk',
       country: 'Belarus',
@@ -39,20 +38,16 @@ describe('IsfCurrentWeatherComponent', () => {
   });
 
   it('should display data from input correctly', () => {
-    // Передаем данные в обязательный Signal-инпут
     fixture.componentRef.setInput('current', mockWeather);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
     const textContent = compiled.textContent;
 
-    // Проверяем температуру
     expect(textContent).toContain('15');
 
-    // Проверяем влажность
     expect(textContent).toContain('80%');
 
-    // Проверяем пайп погоды
     expect(textContent).toContain('Overcast');
   });
 });

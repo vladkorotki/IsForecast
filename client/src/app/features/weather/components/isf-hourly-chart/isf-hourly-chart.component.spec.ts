@@ -1,3 +1,4 @@
+import { ElementRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Chart, ChartConfiguration } from 'chart.js';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -31,13 +32,43 @@ describe('IsfHourlyChartComponent', () => {
     component = fixture.componentInstance;
 
     const canvas = document.createElement('canvas');
-    const mockContext = {};
+
+
+    const mockContext = {
+      fillRect: vi.fn(),
+      clearRect: vi.fn(),
+      getImageData: vi.fn(),
+      putImageData: vi.fn(),
+      createImageData: vi.fn(),
+      setTransform: vi.fn(),
+      drawImage: vi.fn(),
+      save: vi.fn(),
+      restore: vi.fn(),
+      beginPath: vi.fn(),
+      moveTo: vi.fn(),
+      lineTo: vi.fn(),
+      closePath: vi.fn(),
+      stroke: vi.fn(),
+      translate: vi.fn(),
+      scale: vi.fn(),
+      rotate: vi.fn(),
+      arc: vi.fn(),
+      fill: vi.fn(),
+      measureText: vi.fn(() => ({ width: 0 })),
+      transform: vi.fn(),
+      rect: vi.fn(),
+      clip: vi.fn(),
+    };
+
+
     canvas.getContext = vi.fn().mockReturnValue(mockContext);
 
     const viewChildRef = component as unknown as {
-      chartCanvas: () => { nativeElement: HTMLCanvasElement };
+      chartCanvas: () => ElementRef<HTMLCanvasElement>;
     };
-    vi.spyOn(viewChildRef, 'chartCanvas').mockReturnValue({ nativeElement: canvas });
+    vi.spyOn(viewChildRef, 'chartCanvas').mockReturnValue({
+      nativeElement: canvas,
+    } as ElementRef<HTMLCanvasElement>);
 
     fixture.componentRef.setInput('config', mockConfig);
   });

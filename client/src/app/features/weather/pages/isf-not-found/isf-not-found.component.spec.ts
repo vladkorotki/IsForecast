@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core'; // <-- Правильный импорт
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';

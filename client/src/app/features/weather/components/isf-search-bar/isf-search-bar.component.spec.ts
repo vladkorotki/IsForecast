@@ -52,7 +52,6 @@ describe('IsfSearchBarComponent', () => {
   it('should emit query on search if text is entered', () => {
     const emitSpy = vi.spyOn(component.searchLocation, 'emit');
 
-    // Доступ к protected полям
     const testableComponent = component as unknown as {
       searchControl: { setValue: (v: string) => void };
       onSearch: (e: Event) => void;
@@ -60,7 +59,6 @@ describe('IsfSearchBarComponent', () => {
 
     testableComponent.searchControl.setValue('London');
 
-    // Мокаем событие
     const mockEvent = { stopPropagation: vi.fn() } as unknown as Event;
     testableComponent.onSearch(mockEvent);
 

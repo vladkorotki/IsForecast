@@ -40,7 +40,6 @@ describe('IsfWeatherDashboardComponent', () => {
         location: { name: 'Minsk', country: 'BY', latitude: 53.9, longitude: 27.5 },
       },
       hourly: {
-        // Добавляем один час для сегодняшнего дня (2026-11-10)
         time: ['2026-11-10T12:00'],
         temperature: [15],
         precipitation: [0],
