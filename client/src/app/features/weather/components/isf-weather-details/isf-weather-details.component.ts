@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { computed, input } from '@angular/core';
@@ -13,6 +13,7 @@ import { calculateDailyStats, filterHourlyForDay } from '../../../../core/utils/
   selector: 'isf-weather-details',
   styleUrl: './isf-weather-details.component.scss',
   templateUrl: './isf-weather-details.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IsfWeatherDetailsComponent {
   readonly daily = input.required<IWeatherDaily>();
